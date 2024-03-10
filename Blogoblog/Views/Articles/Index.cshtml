@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Просмотр статей";
+}
+
+<div clamarging background-white">
+    <h4 class="center">Все статьи</h4>
+    <a class="text-blue" asp-area="" asp-controller="Articles" asp-action="AddArticle">Добавить статью</a>
+
+    @foreach (var article in Model)
+    {
+        <div class="card" style="width: 18rem; margin-top:30px">
+            <div class="card-body">
+                <h5 class="card-title" style="color:blue">@article.Title</h5>
+                <div class="tagbox">
+@*                     @if (article.Tags.Count != 0)
+                    {
+                        @foreach (var tag in article.Tags)
+                        {
+                            <span class="badge badge-primary" style="margin:5px,15px">tag.Content</span>
+                        }
+                    }
+                    else
+                    {
+                        <span class="badge badge-primary" style="margin:5px,15px">SkillFactory</span>
+                    } *@
+                </div>
+@*                 <form method="get" asp-controller="Articles" asp-action="GetArticleById" asp-route-id="@article.Id" style="margin-top:50px">
+                    <input class="enter_submit" type="submit" value="Просмотреть" />
+                </form> *@
+            </div>
+        </div>
+    }
+</div>

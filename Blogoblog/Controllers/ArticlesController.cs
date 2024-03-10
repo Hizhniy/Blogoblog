@@ -30,14 +30,14 @@ namespace Blogoblog.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult AddArticle()
         {
             _logger.LogInformation("ArticlesController - Add");
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Article newArticle)
+        public async Task<IActionResult> AddArticle(Article newArticle)
         {
             // Получаем логин текущего пользователя из контекста сессии
             string? currentUserLogin = User?.Identity?.Name;

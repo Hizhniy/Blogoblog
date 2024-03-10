@@ -32,13 +32,13 @@ namespace PracticeBlog.Controllers
             return View(role);
         }
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult AddRole()
         {
             _logger.LogInformation("RolesController - Add");
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Add(Role newRole)
+        public async Task<IActionResult> AddRole(Role newRole)
         {
             await _repo.Add(newRole);
             _logger.LogInformation("RolesController - Add - complete");

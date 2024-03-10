@@ -51,7 +51,7 @@ internal class Program
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 
-        app.UseMiddleware<ExceptionHandlingMiddleware>();
+        //app.UseMiddleware<ExceptionHandlingMiddleware>();
 
         app.UseRouting();
 

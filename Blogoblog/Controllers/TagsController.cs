@@ -41,14 +41,14 @@ namespace Blogoblog.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult AddTag()
         {
             _logger.LogInformation("TagsController - Add");
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Tag newTag)
+        public async Task<IActionResult> AddTag(Tag newTag)
         {
             await _repo.Add(newTag);
             _logger.LogInformation("TagsController - Add - complete");
