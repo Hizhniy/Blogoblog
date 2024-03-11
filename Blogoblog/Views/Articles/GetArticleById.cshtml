@@ -4,7 +4,9 @@
 
 <div clamarging background-white">
     <div class="blog-main">
+
         <h2 class="blog-post-title">@Model.Title</h2><br>
+
         <div class="tagbox">
             @if (@Model.Tags.Count != 0)
             {
@@ -18,11 +20,14 @@
                 <span class="badge badge-primary">SkillFactory</span>
             }
         </div>
+
         <p style="border-top:groove; border-bottom:groove; margin-top:20px; margin-bottom:20px"><font style="vertical-align: inherit">@Model.Content</font></p>
+        
         @if (@Model.User_Id != 0)
         {
             <p class="text-muted" style="margin-top:10px; margin-left: 100px">@Model.User.Email</p>
         }
+
         <div class="tagbox">
             @if (@Model.Comments.Count != 0)
             {

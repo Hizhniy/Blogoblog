@@ -12,7 +12,7 @@
             <div class="card-body">
                 <h5 class="card-title" style="color:blue">@article.Title</h5>
                 <div class="tagbox">
-@*                     @if (article.Tags.Count != 0)
+                    @if (article.Tags.Count != 0)
                     {
                         @foreach (var tag in article.Tags)
                         {
@@ -22,11 +22,11 @@
                     else
                     {
                         <span class="badge badge-primary" style="margin:5px,15px">SkillFactory</span>
-                    } *@
+                    }
                 </div>
-@*                 <form method="get" asp-controller="Articles" asp-action="GetArticleById" asp-route-id="@article.Id" style="margin-top:50px">
-                    <input class="enter_submit" type="submit" value="Просмотреть" />
-                </form> *@
+                <form method="get" asp-controller="Articles" asp-action="GetArticleById" asp-route-id="@article.Id" style="margin-top:50px">
+                    <input class="enter_submit" type="submit" value="Просмотреть"/>
+                </form>
             </div>
         </div>
     }

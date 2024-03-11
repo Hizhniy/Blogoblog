@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Blogoblog.DAL.Models
 {
@@ -20,6 +21,8 @@ namespace Blogoblog.DAL.Models
 
         public int User_Id { get; set; }
         public User User { get; set; }
+
+        [ForeignKey("Article_Id")]
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }

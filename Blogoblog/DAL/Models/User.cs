@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace Blogoblog.DAL.Models
@@ -33,6 +34,7 @@ namespace Blogoblog.DAL.Models
 
         public int Role_Id { get; set; } = 1;
 
+        [ForeignKey("User_Id")]
         public List<Role> Roles { get; set; } = new List<Role>();
         public List<Comment> Comments { get; set; } = new List<Comment>();
     }

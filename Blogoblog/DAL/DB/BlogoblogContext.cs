@@ -1,6 +1,7 @@
 ﻿using Blogoblog.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Blogoblog.DAL.DB
 {
     public class BlogoblogContext : DbContext
@@ -16,15 +17,24 @@ namespace Blogoblog.DAL.DB
             Database.EnsureCreated();
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            builder.Entity<Role>().ToTable("Roles");
-            builder.Entity<User>().ToTable("Users");
-            builder.Entity<Article>().ToTable("Articles");
-            builder.Entity<Tag>().ToTable("Tags");
-            builder.Entity<Comment>().ToTable("Comments");
+            base.OnModelCreating(modelBuilder);
 
-            //builder.Entity<Comment>()
+            modelBuilder.Entity<Role>().ToTable("Roles");
+            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<Article>().ToTable("Articles");
+            modelBuilder.Entity<Tag>().ToTable("Tags");
+            modelBuilder.Entity<Comment>().ToTable("Comments");
+
+            //modelBuilder.Entity<User>().ToTable("Users_Roles") // Устанавливаем нужное имя для промежуточной таблицы
+            //    .HasMany(u => u.Roles)
+            //    .WithMany(r => r.Users);
+
+
+            // Другие настройки моделей
+
+            //modelBuilder.Entity<Comment>()
             //    .HasOne(a => a.User)
             //    .WithMany(b => b.Comments)
             //    .HasForeignKey(c => c.User_Id)
