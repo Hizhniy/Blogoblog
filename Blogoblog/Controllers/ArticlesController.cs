@@ -42,9 +42,9 @@ namespace Blogoblog.Controllers
             // Получаем логин текущего пользователя из контекста сессии
             string? currentUserLogin = User?.Identity?.Name;
             var user = _userRepo.GetByLogin(currentUserLogin);
-
             newArticle.User_Id = user.Id;
             newArticle.User = user;
+            newArticle.Article_Date = DateTime.Today;
             await _repo.Add(newArticle);
             _logger.LogInformation("ArticlesController - Add - complete");
             return View(newArticle);
