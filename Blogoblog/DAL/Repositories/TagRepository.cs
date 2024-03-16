@@ -1,5 +1,6 @@
 ﻿using Blogoblog.DAL.DB;
 using Blogoblog.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Blogoblog.DAL.Repositories
@@ -9,5 +10,9 @@ namespace Blogoblog.DAL.Repositories
         public TagRepository(BlogoblogContext db) : base(db)
         {
         }
+        //public IEnumerable<Tag> GetAllTagsInArticle()
+        //{
+        //    return Set.Include(x => x.Articles);
+        //}
     }
 }

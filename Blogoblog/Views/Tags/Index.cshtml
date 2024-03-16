@@ -23,7 +23,9 @@
                             <button class="btn btn-primary btn-sm" onclick="window.location.href='@Url.Action("Update", "Tags", new { id = tag.Id })'">Редактировать</button>
                         </div>
                         <div style="display:inline-block">
-                            <button class="btn btn-danger btn-sm" asp-area="" asp-controller="Tags" asp-action="Delete" asp-route-id="@tag.Id">Удалить</button>
+                            <form asp-controller="Tags" asp-action="Delete" asp-route-id="@tag.Id" method="post">
+                                <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                            </form>
                         </div>
                     </div>
                 }

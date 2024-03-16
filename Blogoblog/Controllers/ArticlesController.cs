@@ -10,7 +10,7 @@ namespace Blogoblog.Controllers
     public class ArticlesController : Controller
     {
         private readonly IRepository<Article> _repo;
-        private readonly IRepository<Tag> _tagRepo;
+        private readonly IRepository<Tag> _tagRepo;        
         private readonly IRepository<User> _userRepo;
         private readonly ILogger<ArticlesController> _logger;
 
@@ -78,7 +78,7 @@ namespace Blogoblog.Controllers
         [HttpGet]
         public async Task<IActionResult> GetArticleById(int id)
         {
-            var article = await _repo.Get(id);
+            var article = await _repo.Get(id);            
             _logger.LogInformation("ArticlesController - GetArticleById");
             return View(article);
         }
