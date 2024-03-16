@@ -9,14 +9,14 @@ namespace Blogoblog.Controllers
     [Authorize]
     public class ArticlesController : Controller
     {
-        private readonly IRepository<Article> _repo;
-        private readonly IRepository<Tag> _tagRepo;        
+        private readonly IRepository<Article> _articleRepo;
+        private readonly IRepository<Tag> _tagRepo;
         private readonly IRepository<User> _userRepo;
         private readonly ILogger<ArticlesController> _logger;
 
-        public ArticlesController(IRepository<Article> repo, IRepository<Tag> tag_repo, IRepository<User> user_repo, ILogger<ArticlesController> logger)
+        public ArticlesController(IRepository<Article> article_repo, IRepository<Tag> tag_repo, IRepository<User> user_repo, ILogger<ArticlesController> logger)
         {
-            _repo = repo;
+            _articleRepo = article_repo;
             _tagRepo = tag_repo;
             _userRepo = user_repo;
             _logger = logger;
@@ -26,7 +26,7 @@ namespace Blogoblog.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var articles = await _repo.GetAll();
+            var articles = await _articleRepo.GetAll();
             _logger.LogInformation("ArticlesController - Index");
             return View(articles);
         }
@@ -39,26 +39,17 @@ namespace Blogoblog.Controllers
             return View(new AddArticleViewModel() { Tags = tags.ToList() });
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddArticle(Article newArticle)
-        //{
-        //    // Получаем логин текущего пользователя из контекста сессии
-        //    string? currentUserLogin = User?.Identity?.Name;
-        //    var user = _userRepo.GetByLogin(currentUserLogin);
-        //    newArticle.User_Id = user.Id;
-        //    newArticle.User = user;
-        //    newArticle.Article_Date = DateTimeOffset.UtcNow;
-        //    await _repo.Add(newArticle);
-        //    _logger.LogInformation("ArticlesController - Add - complete");
-        //    return View(newArticle);
-        //}
 
         [HttpPost]
-        public async Task<IActionResult> AddArticle(AddArticleViewModel model)
+        public async Task<IActionResult> AddArticle(AddArticleViewModel model, List<int> SelectedTags)
         {
             // Получаем логин текущего пользователя из контекста сессии
             string? currentUserLogin = User?.Identity?.Name;
             var user = _userRepo.GetByLogin(currentUserLogin);
+
+            var tags = new List<Tag>();
+
+            SelectedTags.ForEach(async id => tags.Add(await _tagRepo.Get(id)));
 
             var article = new Article
             {
@@ -67,10 +58,10 @@ namespace Blogoblog.Controllers
                 Article_Date = DateTimeOffset.UtcNow,
                 Title = model.Title,
                 Content = model.Content,
-                Tags = model.Tags
+                Tags = tags
             };
 
-            await _repo.Add(article);
+            await _articleRepo.Add(article);
             _logger.LogInformation("ArticlesController - Add - complete");
             return RedirectToAction("Index");
         }
@@ -78,7 +69,7 @@ namespace Blogoblog.Controllers
         [HttpGet]
         public async Task<IActionResult> GetArticleById(int id)
         {
-            var article = await _repo.Get(id);            
+            var article = await _articleRepo.Get(id);
             _logger.LogInformation("ArticlesController - GetArticleById");
             return View(article);
         }
@@ -93,8 +84,8 @@ namespace Blogoblog.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var article = await _repo.Get(id);
-            await _repo.Delete(article);
+            var article = await _articleRepo.Get(id);
+            await _articleRepo.Delete(article);
             _logger.LogInformation("ArticlesController - Delete - complete");
             return RedirectToAction("Index", "Articles");
         }
@@ -102,20 +93,21 @@ namespace Blogoblog.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var article = await _repo.Get(id);
+            var article = await _articleRepo.Get(id);
             _logger.LogInformation("ArticlesController - Update");
             return View(article);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ConfirmUpdating(Article article)
+        public async Task<IActionResult> ConfirmUpdating(Article article, List<int> SelectedTags)
         {
             string? currentUserLogin = User?.Identity?.Name;
             var user = _userRepo.GetByLogin(currentUserLogin);
 
             article.User_Id = user.Id;
             article.User = user;
-            await _repo.Update(article);
+            //article.Tags = SelectedTags;
+            await _articleRepo.Update(article);
             _logger.LogInformation("ArticlesController - Update - complete");
             return RedirectToAction("Index", "Articles");
         }

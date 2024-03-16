@@ -20,17 +20,15 @@
                     {
                         @foreach (var tag in article.Tags)
                         {
-                            <span class="badge bg-info text-dark">tag.Content</span>
+                            <span class="badge bg-info text-dark">@tag.Content</span>
                         }
-                    }
-                    else
-                    {
-                        <span class="badge bg-info text-dark">ГДЕ ТЭГИ?</span>
                     }
                 </div>
 
-                <div style="display:inline-block; margin-top:10%">
-                    <button class="btn btn-primary btn-sm" onclick="window.location.href='@Url.Action("GetArticleById", "Articles", new { id = article.Id })'">Просмотреть</button>
+                <div style="margin-top:10%">
+                    <div style="display:inline-block">
+                        <button class="btn btn-primary btn-sm" onclick="window.location.href='@Url.Action("GetArticleById", "Articles", new { id = article.Id })'">Просмотреть</button>
+                    </div>
                 </div>
             </div>
         </div>
