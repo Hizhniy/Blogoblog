@@ -33,24 +33,46 @@ namespace Blogoblog.Controllers
 
         [HttpGet]
         public async Task<IActionResult> AddArticle()
-        {            
+        {
             var tags = await _tagRepo.GetAll();
             _logger.LogInformation("ArticlesController - Add");
             return View(new AddArticleViewModel() { Tags = tags.ToList() });
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> AddArticle(Article newArticle)
+        //{
+        //    // Получаем логин текущего пользователя из контекста сессии
+        //    string? currentUserLogin = User?.Identity?.Name;
+        //    var user = _userRepo.GetByLogin(currentUserLogin);
+        //    newArticle.User_Id = user.Id;
+        //    newArticle.User = user;
+        //    newArticle.Article_Date = DateTimeOffset.UtcNow;
+        //    await _repo.Add(newArticle);
+        //    _logger.LogInformation("ArticlesController - Add - complete");
+        //    return View(newArticle);
+        //}
+
         [HttpPost]
-        public async Task<IActionResult> AddArticle(Article newArticle)
+        public async Task<IActionResult> AddArticle(AddArticleViewModel model)
         {
             // Получаем логин текущего пользователя из контекста сессии
             string? currentUserLogin = User?.Identity?.Name;
             var user = _userRepo.GetByLogin(currentUserLogin);
-            newArticle.User_Id = user.Id;
-            newArticle.User = user;
-            newArticle.Article_Date = DateTimeOffset.UtcNow;
-            await _repo.Add(newArticle);
+
+            var article = new Article
+            {
+                User_Id = user.Id,
+                User = user,
+                Article_Date = DateTimeOffset.UtcNow,
+                Title = model.Title,
+                Content = model.Content,
+                Tags = model.Tags
+            };
+
+            await _repo.Add(article);
             _logger.LogInformation("ArticlesController - Add - complete");
-            return View(newArticle);
+            return View(article);
         }
 
         [HttpGet]
