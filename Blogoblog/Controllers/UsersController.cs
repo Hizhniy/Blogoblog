@@ -114,7 +114,7 @@ namespace Blogoblog.Controllers
         }
 
         //GET: User/Edit(Update)
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "3")]
         [HttpGet]
         [Route("Update")]
         public async Task<IActionResult> Update(int id)

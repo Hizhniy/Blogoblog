@@ -48,15 +48,28 @@ namespace Blogoblog.DAL.Repositories
 
         public async Task Update(T item)
         {
+            var existingItem = await Set.FindAsync(GetKeyValue(item));
+
+            if (existingItem != null)
+            {
+                _db.Entry(existingItem).State = EntityState.Detached;
+            }
+
             Set.Update(item);
-            await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync();        
         }
 
-        public async Task Update(T item, T newItem)
+        private object GetKeyValue(T item)
         {
-            item = newItem;
-            Set.Update(item);
-            await _db.SaveChangesAsync();
+            var key = _db.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties.FirstOrDefault();
+            return item.GetType().GetProperty(key.Name).GetValue(item);
         }
+
+        //public async Task Update(T item, T newItem)
+        //{
+        //    item = newItem;
+        //    Set.Update(item);
+        //    await _db.SaveChangesAsync();
+        //}
     }
 }

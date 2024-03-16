@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Blogoblog.DAL.Models;
 using Blogoblog.DAL.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Blogoblog.Controllers
@@ -56,6 +57,7 @@ namespace Blogoblog.Controllers
         }
 
         [HttpPost]
+        //[Authorize(Roles = "3")]
         public async Task<IActionResult> Delete(int id)
         {
             var tag = await _repo.Get(id);
@@ -73,6 +75,7 @@ namespace Blogoblog.Controllers
         }
 
         [HttpPost]
+        //[Authorize(Roles = "3")]
         public async Task<IActionResult> ConfirmUpdating(Tag tag)
         {
             await _repo.Update(tag);
