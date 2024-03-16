@@ -5,8 +5,8 @@
 }
 
 <div class="col-md-4 offset-md-4">
-    @if (Model == null)
-    {
+@*     @if (Model == null)
+    { *@
         <form class="frm" method="post" asp-controller="Articles" asp-action="AddArticle">
 
             <div asp-validation-summary="ModelOnly"></div>
@@ -22,17 +22,6 @@
             <div class="form-group" style="margin-top:10%">
                 <label>Контент</label>
                 <textarea rows="10" asp-for="Content" class="form-control" placeholder="Муки творчества знакомы каждому автору" required minlength="3"></textarea>
-            </div>
-
-            <div class="form-group" style="margin-top:3%">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" style="padding-right:3%" for="flexCheckDefault">хочувсезнать</label>
-
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" style="padding-right:3%" for="flexCheckDefault">ойвсё</label>
-
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" style="padding-right:3%" for="flexCheckDefault">скоролето</label>
             </div>
 
             <div class="form-group" style="margin-top:3%">
@@ -53,9 +42,22 @@
             <p style="margin-top:5%"><a class="text-blue" asp-area="" asp-controller="Articles" asp-action="Index">Перейти к списку всех статей</a></p>
 
         </form>
-    }
+@*     }
     else
-    {
+    { *@
         @await Html.PartialAsync("_ArticleAdded")
-    }
+    @* } *@
 </div>
+
+
+@*
+            <div class="form-group" style="margin-top:3%">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" style="padding-right:3%" for="flexCheckDefault">хочувсезнать</label>
+
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" style="padding-right:3%" for="flexCheckDefault">ойвсё</label>
+
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" style="padding-right:3%" for="flexCheckDefault">скоролето</label>
+            </div> *@

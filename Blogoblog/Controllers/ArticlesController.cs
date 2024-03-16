@@ -10,12 +10,14 @@ namespace Blogoblog.Controllers
     public class ArticlesController : Controller
     {
         private readonly IRepository<Article> _repo;
+        private readonly IRepository<Tag> _tagRepo;
         private readonly IRepository<User> _userRepo;
         private readonly ILogger<ArticlesController> _logger;
 
-        public ArticlesController(IRepository<Article> repo, IRepository<User> user_repo, ILogger<ArticlesController> logger)
+        public ArticlesController(IRepository<Article> repo, IRepository<Tag> tag_repo, IRepository<User> user_repo, ILogger<ArticlesController> logger)
         {
             _repo = repo;
+            _tagRepo = tag_repo;
             _userRepo = user_repo;
             _logger = logger;
             _logger.LogDebug(1, "NLog подключен к ArtController");
@@ -30,10 +32,11 @@ namespace Blogoblog.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddArticle()
-        {
+        public async Task<IActionResult> AddArticle()
+        {            
+            var tags = await _tagRepo.GetAll();
             _logger.LogInformation("ArticlesController - Add");
-            return View();
+            return View(new AddArticleViewModel() { Tags = tags.ToList() });
         }
 
         [HttpPost]
@@ -44,7 +47,7 @@ namespace Blogoblog.Controllers
             var user = _userRepo.GetByLogin(currentUserLogin);
             newArticle.User_Id = user.Id;
             newArticle.User = user;
-            newArticle.Article_Date = DateTime.Today;
+            newArticle.Article_Date = DateTimeOffset.UtcNow;
             await _repo.Add(newArticle);
             _logger.LogInformation("ArticlesController - Add - complete");
             return View(newArticle);

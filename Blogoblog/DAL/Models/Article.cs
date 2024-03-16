@@ -6,7 +6,7 @@ namespace Blogoblog.DAL.Models
     public class Article
     {
         public int Id { get; set; }
-        public DateTime Article_Date { get; set; }
+        public DateTimeOffset Article_Date { get; set; }
 
         [Required(ErrorMessage = "Поле Заголовок обязательно для заполнения")]
         [DataType(DataType.Text)]
