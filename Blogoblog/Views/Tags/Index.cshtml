@@ -2,23 +2,30 @@
     ViewData["Title"] = "Просмотр тегов";
 }
 
-<div clamarging background-white">
-    <h4 class="center">Все теги</h4>
-    <a class="text-blue" asp-area="" asp-controller="Tags" asp-action="AddTag">Добавить тег</a>
+<div class="col-md-12">
+
+    <div class="center">
+        <h3 class="center">Все теги</h3>
+        <a class="text-blue" asp-area="" asp-controller="Tags" asp-action="AddTag">Добавить тег</a>
+    </div>
+
     @foreach (var tag in Model)
     {
-        <div class="card" style="width: 18rem; margin-top:30px">
+        <div class="card" style="display:inline-block; margin:1%">
             <div class="card-body">
-                <h5 class="card-title" style="color:blue">@tag.Content</h5>
-                <p class="text-muted" style="margin-top:60px; margin-left: 100px">Статей по тегу: @tag.Articles.Count</p>
-                @if (User.IsInRole("Admin"))
+                <h5 class="card-title" style="color:darkgoldenrod">@tag.Content</h5>
+                <p class="text-muted" style="margin-top:1%; text-align: right">статей по тегу: @tag.Articles.Count</p>
+
+                @if (User.IsInRole("3"))
                 {
-                    <form method="get" asp-controller="Tags" asp-action="Update" asp-route-id="@tag.Id" style="display:inline-block">
-                        <input class="enter_submit" type="submit" value="Редактировать" style="color:green" />
-                    </form>
-                    <form method="post" asp-controller="Tags" asp-action="Delete" asp-route-id="@tag.Id" style="display:inline-block">
-                        <input class="enter_submit" type="submit" value="Удалить" style="color:red" />
-                    </form>
+                    <div class="center">
+                        <div style="display:inline-block">
+                            <button class="btn btn-primary btn-sm" onclick="window.location.href='@Url.Action("Update", "Tags", new { id = tag.Id })'">Редактировать</button>
+                        </div>
+                        <div style="display:inline-block">
+                            <button class="btn btn-danger btn-sm" onclick="window.location.href='@Url.Action("Delete", "Tags", new { id = tag.Id })'">Удалить</button>
+                        </div>
+                    </div>
                 }
             </div>
         </div>

@@ -72,7 +72,7 @@ namespace Blogoblog.Controllers
 
             await _repo.Add(article);
             _logger.LogInformation("ArticlesController - Add - complete");
-            return View(article);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
