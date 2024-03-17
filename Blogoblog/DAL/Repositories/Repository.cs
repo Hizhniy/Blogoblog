@@ -27,13 +27,10 @@ namespace Blogoblog.DAL.Repositories
 
         public async Task<T> Get(int id)
         {
-            if (typeof(T) == typeof(Article))
-            {
-                return await Set.Include("Tags").FirstOrDefaultAsync(t => ((Article)(object)t).Id == id);
-                //!Нужно убрать класс Repository и унаследовать все от IRepository или для каждого свой интерфейс (что лучше)
-                //!Тогда: return await Set.Include(a => a.Tags).FirstOrDefaultAsync(a => a.Id == id);
-            }
-
+            //if (typeof(T) == typeof(Article))
+            //{
+            //    return await Set.Include("Tags").FirstOrDefaultAsync(t => ((Article)(object)t).Id == id);
+            //}
             return await Set.FindAsync(id);
         }
         
@@ -42,10 +39,10 @@ namespace Blogoblog.DAL.Repositories
             return await Set.ToListAsync();
         }
 
-        public User GetByLogin(string login)
-        {
-            return Set.FirstOrDefault(x => (x as User).Email == login) as User;
-        }
+        //public User GetByLogin(string login)
+        //{
+        //    return Set.FirstOrDefault(x => (x as User).Email == login) as User;
+        //}
 
         public async Task Delete(T item)
         {

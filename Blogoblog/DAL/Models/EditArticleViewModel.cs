@@ -1,13 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Blogoblog.DAL.Models
 {
-    public class ArticleViewModel
+    public class EditArticleViewModel
     {
-        public int Id { get; set; }
-        public DateTimeOffset Article_Date { get; set; }
-
         [Required(ErrorMessage = "Поле Заголовок обязательно для заполнения")]
         [DataType(DataType.Text)]
         [Display(Name = "Название", Prompt = "Введите название статьи")]
@@ -19,11 +15,6 @@ namespace Blogoblog.DAL.Models
         [Display(Name = "Текст", Prompt = "Введите текст статьи")]
         public string? Content { get; set; }
 
-        public int User_Id { get; set; }
-        public User User { get; set; }
-
-        [ForeignKey("Article_Id")]
-        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
-        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public IList<Tag>? Tags { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Blogoblog.DAL.Repositories
 {
-    public class ArticleRepository : IRepository<Article>
+    public class ArticleRepository : IArticleRepository
     {
         protected DbContext _db;
 
@@ -31,8 +31,8 @@ namespace Blogoblog.DAL.Repositories
         }
 
         public async Task<IEnumerable<Article>> GetAll()
-        {
-            return await Set.ToListAsync();
+        {         
+            return await Set.Include(a => a.Tags).ToListAsync();
         }
 
         public IEnumerable<Article> GetArticlesByAuthorId(int user_Id)

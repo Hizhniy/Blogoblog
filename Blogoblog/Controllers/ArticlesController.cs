@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Blogoblog.DAL.Models;
 using Blogoblog.DAL.Repositories;
+using System.Collections.Generic;
 
 
 namespace Blogoblog.Controllers
@@ -9,12 +10,12 @@ namespace Blogoblog.Controllers
     [Authorize]
     public class ArticlesController : Controller
     {
-        private readonly IRepository<Article> _articleRepo;
+        private readonly IArticleRepository _articleRepo;
         private readonly IRepository<Tag> _tagRepo;
         private readonly IUserRepository _userRepo;
         private readonly ILogger<ArticlesController> _logger;
 
-        public ArticlesController(IRepository<Article> article_repo, IRepository<Tag> tag_repo, IUserRepository user_repo, ILogger<ArticlesController> logger)
+        public ArticlesController(IArticleRepository article_repo, IRepository<Tag> tag_repo, IUserRepository user_repo, ILogger<ArticlesController> logger)
         {
             _articleRepo = article_repo;
             _tagRepo = tag_repo;
@@ -36,9 +37,8 @@ namespace Blogoblog.Controllers
         {
             var tags = await _tagRepo.GetAll();
             _logger.LogInformation("ArticlesController - Add");
-            return View(new AddArticleViewModel() { Tags = tags.ToList() });
+            return View(new AddArticleViewModel() { Tags = tags.ToList() });            
         }
-
 
         [HttpPost]
         public async Task<IActionResult> AddArticle(AddArticleViewModel model, List<int> SelectedTags)

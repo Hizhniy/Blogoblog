@@ -21,12 +21,14 @@ internal class Program
             
             .AddUnitOfWork()
                 //.AddCustomRepository<User, UserRepository>()
-                .AddCustomRepository<Article, ArticleRepository>()
+                //.AddCustomRepository<Article, ArticleRepository>()
                 .AddCustomRepository<Comment, CommentRepository>()
                 .AddCustomRepository<Tag, TagRepository>()            
                 .AddCustomRepository<Role, RoleRepository>();
 
-        builder.Services.AddTransient<IUserRepository, UserRepository>();
+        builder.Services
+            .AddTransient<IUserRepository, UserRepository>()
+            .AddTransient<IArticleRepository, ArticleRepository>();
 
         builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
             AddCookie(options =>
