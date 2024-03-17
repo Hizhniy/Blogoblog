@@ -37,7 +37,7 @@ namespace Blogoblog.DAL.Repositories
 
         public IEnumerable<Article> GetArticlesByAuthorId(int user_Id)
         {
-            var articles = Set.AsEnumerable().Where(x => x.User_Id == user_Id);
+            var articles = Set.Include(a => a.Tags).AsEnumerable().Where(x => x.User_Id == user_Id);
             return articles.ToList();
         }
 

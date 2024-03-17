@@ -94,19 +94,38 @@ namespace Blogoblog.Controllers
         public async Task<IActionResult> Update(int id)
         {
             var article = await _articleRepo.Get(id);
+            var tags = await _tagRepo.GetAll();
             _logger.LogInformation("ArticlesController - Update");
-            return View(article);
+            //return View(article);
+            return View(new EditArticleViewModel() {
+                Title = article.Title,
+                Content = article.Content,
+                Tags = tags.ToList() });
+            
         }
 
         [HttpPost]
-        public async Task<IActionResult> ConfirmUpdating(Article article, List<int> SelectedTags)
+        public async Task<IActionResult> ConfirmUpdating(EditArticleViewModel model, List<int> SelectedTags)
         {
             string? currentUserLogin = User?.Identity?.Name;
             var user = _userRepo.GetByLogin(currentUserLogin);
 
-            article.User_Id = user.Id;
-            article.User = user;
+            var tags = new List<Tag>();
+            SelectedTags.ForEach(async id => tags.Add(await _tagRepo.Get(id)));
+
+            var article = new Article
+            {
+                User_Id = user.Id,
+                User = user,
+                Article_Date = DateTimeOffset.UtcNow,
+                Title = model.Title,
+                Content = model.Content,
+                Tags = tags
+            };
+            //article.User_Id = user.Id;
+            //article.User = user;
             //article.Tags = SelectedTags;
+
             await _articleRepo.Update(article);
             _logger.LogInformation("ArticlesController - Update - complete");
             return RedirectToAction("Index", "Articles");

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace Blogoblog.DAL.Models
 {
     public class Role

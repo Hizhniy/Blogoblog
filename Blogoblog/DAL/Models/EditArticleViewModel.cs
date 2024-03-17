@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+
 namespace Blogoblog.DAL.Models
 {
     public class EditArticleViewModel
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Поле Заголовок обязательно для заполнения")]
         [DataType(DataType.Text)]
         [Display(Name = "Название", Prompt = "Введите название статьи")]

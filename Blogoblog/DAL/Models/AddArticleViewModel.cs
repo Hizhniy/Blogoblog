@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+
 namespace Blogoblog.DAL.Models
 {
     public class AddArticleViewModel
