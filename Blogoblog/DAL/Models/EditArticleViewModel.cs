@@ -18,6 +18,8 @@ namespace Blogoblog.DAL.Models
         [Display(Name = "Текст", Prompt = "Введите текст статьи")]
         public string? Content { get; set; }
 
-        public IList<Tag>? Tags { get; set; }
+        public IList<Tag>? TagsSelected { get; set; }
+
+        public IList<Tag>? Tags { get; set; }        
     }
 }

@@ -98,10 +98,11 @@ namespace Blogoblog.Controllers
             _logger.LogInformation("ArticlesController - Update");
             //return View(article);
             return View(new EditArticleViewModel() {
+                Id = article.Id,
                 Title = article.Title,
                 Content = article.Content,
-                Tags = tags.ToList() });
-            
+                TagsSelected = article.Tags.ToList(),
+                Tags = tags.ToList() });            
         }
 
         [HttpPost]
@@ -115,16 +116,14 @@ namespace Blogoblog.Controllers
 
             var article = new Article
             {
+                //Id = model.Id,
                 User_Id = user.Id,
                 User = user,
                 Article_Date = DateTimeOffset.UtcNow,
                 Title = model.Title,
                 Content = model.Content,
-                Tags = tags
+                Tags = tags                
             };
-            //article.User_Id = user.Id;
-            //article.User = user;
-            //article.Tags = SelectedTags;
 
             await _articleRepo.Update(article);
             _logger.LogInformation("ArticlesController - Update - complete");
