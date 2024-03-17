@@ -13,7 +13,7 @@ namespace Blogoblog.DAL.UoW
 
         public UnitOfWork(BlogoblogContext app)
         {
-            this._appContext = app;
+            this._appContext = app;            
         }
 
         public void Dispose()

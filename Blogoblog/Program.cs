@@ -5,6 +5,7 @@ using Blogoblog.DAL.Models;
 using Blogoblog.DAL.Repositories;
 using Blogoblog.Extentions;
 using Blogoblog.Middlewares;
+using Microsoft.Extensions.DependencyInjection;
 
 
 internal class Program
@@ -17,12 +18,15 @@ internal class Program
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
         builder.Services
             .AddDbContext<BlogoblogContext>(options => options.UseNpgsql(connectionString))
+            
             .AddUnitOfWork()
-                .AddCustomRepository<User, UserRepository>()
+                //.AddCustomRepository<User, UserRepository>()
                 .AddCustomRepository<Article, ArticleRepository>()
                 .AddCustomRepository<Comment, CommentRepository>()
-                .AddCustomRepository<Tag, TagRepository>()
-                .AddCustomRepository<Role, RoleRepository>();;
+                .AddCustomRepository<Tag, TagRepository>()            
+                .AddCustomRepository<Role, RoleRepository>();
+
+        builder.Services.AddTransient<IUserRepository, UserRepository>();
 
         builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
             AddCookie(options =>

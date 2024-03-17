@@ -1,5 +1,6 @@
 ﻿using Blogoblog.DAL.Repositories;
 using Blogoblog.DAL.UoW;
+using Microsoft.Extensions.DependencyInjection;
 
 
 namespace Blogoblog.Extentions
@@ -8,7 +9,7 @@ namespace Blogoblog.Extentions
     {
         public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
         {
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();  
             return services;
         }
 
@@ -16,7 +17,7 @@ namespace Blogoblog.Extentions
                  where TEntity : class
                  where IRepository : class, IRepository<TEntity>
         {
-            services.AddScoped<IRepository<TEntity>, IRepository>();
+            services.AddScoped<IRepository<TEntity>, IRepository>();            
             return services;
         }
     }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Blogoblog.DAL.Repositories
 {
-    public class UserRepository : IUserRepository<User>
+    public class UserRepository : IUserRepository
     {
         protected DbContext _db;
 
