@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Blogoblog.DAL.Repositories
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IUserRepository<User>
     {
         protected DbContext _db;
 
@@ -37,7 +37,8 @@ namespace Blogoblog.DAL.Repositories
 
         public User GetByLogin(string login)
         {
-            return Set.FirstOrDefault(x => (x as User).Email == login) as User;
+            //return Set.FirstOrDefault(x => (x as User).Email == login) as User;
+            return Set.FirstOrDefault(x => x.Email == login);
         }
 
         public async Task Delete(User item)

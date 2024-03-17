@@ -1,6 +1,4 @@
-﻿using Blogoblog.DAL.Models;
-
-namespace Blogoblog.DAL.Repositories
+﻿namespace Blogoblog.DAL.Repositories
 {
     public interface IRepository<T> where T : class
     {              
@@ -8,6 +6,6 @@ namespace Blogoblog.DAL.Repositories
         Task<T> Get(int id);
         Task<IEnumerable<T>> GetAll();        
         Task Update(T item);
-        Task Delete(T item);        
+        Task Delete(T item);
     }
 }

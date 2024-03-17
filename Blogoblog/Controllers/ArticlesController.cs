@@ -11,10 +11,10 @@ namespace Blogoblog.Controllers
     {
         private readonly IRepository<Article> _articleRepo;
         private readonly IRepository<Tag> _tagRepo;
-        private readonly IRepository<User> _userRepo;
+        private readonly IUserRepository<User> _userRepo;
         private readonly ILogger<ArticlesController> _logger;
 
-        public ArticlesController(IRepository<Article> article_repo, IRepository<Tag> tag_repo, IRepository<User> user_repo, ILogger<ArticlesController> logger)
+        public ArticlesController(IRepository<Article> article_repo, IRepository<Tag> tag_repo, IUserRepository<User> user_repo, ILogger<ArticlesController> logger)
         {
             _articleRepo = article_repo;
             _tagRepo = tag_repo;

@@ -12,10 +12,10 @@ namespace Blogoblog.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly IRepository<User> _repo;        
+        private readonly IUserRepository<User> _repo;        
         private readonly ILogger<UsersController> _logger;
 
-        public UsersController(IRepository<User> repo, ILogger<UsersController> logger)
+        public UsersController(IUserRepository<User> repo, ILogger<UsersController> logger)
         {
             _repo = repo;            
             _logger = logger;            
