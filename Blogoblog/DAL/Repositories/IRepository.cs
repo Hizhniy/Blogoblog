@@ -6,10 +6,8 @@ namespace Blogoblog.DAL.Repositories
     {              
         Task Add(T item);
         Task<T> Get(int id);
-        Task<IEnumerable<T>> GetAll();
-        User GetByLogin(string login);
+        Task<IEnumerable<T>> GetAll();        
         Task Update(T item);
-        Task Delete(T item);
-        
+        Task Delete(T item);        
     }
 }
