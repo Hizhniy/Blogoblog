@@ -49,15 +49,31 @@ namespace Blogoblog.DAL.Repositories
 
         public async Task Update(Article item)
         {
-            var existingItem = await Set.FindAsync(GetKeyValue(item));
+            //var existingItem = await Set.FindAsync(GetKeyValue(item));
+            var existingItem = await Set.Include(a => a.Tags).FirstOrDefaultAsync(a => a.Id == item.Id);
 
             if (existingItem != null)
             {
-                _db.Entry(existingItem).State = EntityState.Detached;
-            }
+                _db.Entry(existingItem).CurrentValues.SetValues(item);
 
-            Set.Update(item);
-            await _db.SaveChangesAsync();
+                existingItem.Tags.Clear();
+
+                foreach (var tag in item.Tags)
+                {
+                    var existingTag = await _db.Set<Tag>().FirstOrDefaultAsync(t => t.Id == tag.Id);
+
+                    if (existingTag != null)
+                    {
+                        existingItem.Tags.Add(existingTag);
+                    }
+                    else
+                    {
+                        existingItem.Tags.Add(tag);
+                    }
+                }
+
+                await _db.SaveChangesAsync();
+            }
         }
 
         private object GetKeyValue(Article item)

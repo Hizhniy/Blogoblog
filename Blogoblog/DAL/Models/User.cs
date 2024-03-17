@@ -32,7 +32,7 @@ namespace Blogoblog.DAL.Models
         [StringLength(50, ErrorMessage = "Хотя бы 3 символа, пожалуйста", MinimumLength = 3)]
         public string? Password { get; set; }
 
-        public int Role_Id { get; set; } = 1;
+        public int Role_Id { get; set; } = 3;
 
         [ForeignKey("User_Id")]
         public List<Role> Roles { get; set; } = new List<Role>();

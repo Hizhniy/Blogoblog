@@ -47,11 +47,9 @@ namespace Blogoblog.DAL.Repositories
 
             if (existingItem != null)
             {
-                _db.Entry(existingItem).State = EntityState.Detached;
+                _db.Entry(existingItem).CurrentValues.SetValues(item);
+                await _db.SaveChangesAsync();
             }
-
-            Set.Update(item);
-            await _db.SaveChangesAsync();
         }
 
         private object GetKeyValue(Comment item)

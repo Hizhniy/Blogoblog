@@ -96,7 +96,7 @@ namespace Blogoblog.Controllers
             var article = await _articleRepo.Get(id);
             var tags = await _tagRepo.GetAll();
             _logger.LogInformation("ArticlesController - Update");
-            //return View(article);
+            
             return View(new EditArticleViewModel() {
                 Id = article.Id,
                 Title = article.Title,
@@ -116,7 +116,7 @@ namespace Blogoblog.Controllers
 
             var article = new Article
             {
-                //Id = model.Id,
+                Id = model.Id,
                 User_Id = user.Id,
                 User = user,
                 Article_Date = DateTimeOffset.UtcNow,
