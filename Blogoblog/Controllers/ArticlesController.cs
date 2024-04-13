@@ -41,7 +41,7 @@ namespace Blogoblog.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddArticle(AddArticleViewModel model, List<int> SelectedTags)
+        public async Task<IActionResult> AddArticle(AddArticleViewModel model)
         {
             // Получаем логин текущего пользователя из контекста сессии
             string? currentUserLogin = User?.Identity?.Name;
@@ -49,7 +49,7 @@ namespace Blogoblog.Controllers
 
             var tags = new List<Tag>();
 
-            SelectedTags.ForEach(async id => tags.Add(await _tagRepo.Get(id)));
+            model.SelectedTags.ForEach(async id => tags.Add(await _tagRepo.Get(id)));
 
             var article = new Article
             {
@@ -106,13 +106,13 @@ namespace Blogoblog.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ConfirmUpdating(EditArticleViewModel model, List<int> SelectedTags)
+        public async Task<IActionResult> ConfirmUpdating(EditArticleViewModel model)
         {
             string? currentUserLogin = User?.Identity?.Name;
             var user = _userRepo.GetByLogin(currentUserLogin);
 
             var tags = new List<Tag>();
-            SelectedTags.ForEach(async id => tags.Add(await _tagRepo.Get(id)));
+            model.SelectedTags.ForEach(async id => tags.Add(await _tagRepo.Get(id)));
 
             var article = new Article
             {
